@@ -16,7 +16,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Settings"></activity>
+        <activity android:name=".Settings" />
+        <activity android:name=".Trainer" />
+        <activity android:name=".Rimas" />
+        <activity android:name=".Juegos"></activity>
     </application>
 
 </manifest>

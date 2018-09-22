@@ -3,6 +3,7 @@ package rimas.rimas;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -40,6 +41,8 @@ public class Settings extends AppCompatActivity {
     }
 
     private void createDeleteActions() {
+        final Snackbar snackbar = Snackbar.make(editCon, "Terminacion eliminada", Snackbar.LENGTH_LONG);
+
         deleteActionConsonant = new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
@@ -51,6 +54,7 @@ public class Settings extends AppCompatActivity {
                 v.requestLayout();
                 consonanteList.invalidate();
                 consonanteList.requestLayout();
+                snackbar.show();
                 return true;
             }
         };
@@ -66,6 +70,7 @@ public class Settings extends AppCompatActivity {
                 v.requestLayout();
                 asonanteList.invalidate();
                 asonanteList.requestLayout();
+                snackbar.show();
                 return true;
             }
         };
@@ -118,11 +123,18 @@ public class Settings extends AppCompatActivity {
 
         editCon = (EditText) findViewById(R.id.editCon);
         editAs = (EditText) findViewById(R.id.editAs);
+        final Snackbar snackbar = Snackbar.make(editCon, "Terminacion Agregada", Snackbar.LENGTH_LONG);
+
 
         addCon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String toAdd = editCon.getText().toString();
+                toAdd = toAdd.toLowerCase();
+                if(data.containsConsonantTermination(toAdd)){
+                    snackbar.setText("Terminacion ya agregada");
+                    return;
+                }
                 data.addTerminacionConsonante(toAdd);
                 TextView tv = new TextView(Settings.this);
                 tv.setText(toAdd);
@@ -134,6 +146,9 @@ public class Settings extends AppCompatActivity {
                 tv.requestLayout();
                 consonanteList.invalidate();
                 consonanteList.requestLayout();
+                snackbar.show();
+
+
             }
         });
 
@@ -141,6 +156,11 @@ public class Settings extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String toAdd = editAs.getText().toString();
+                toAdd = toAdd.toLowerCase();
+                if(data.containsAsonanteTermination(toAdd)){
+                    snackbar.setText("Terminacion ya agregada");
+                    return;
+                }
                 data.addTerminacionAsonante(toAdd);
                 TextView tv = new TextView(Settings.this);
                 tv.setText(toAdd);
@@ -152,10 +172,12 @@ public class Settings extends AppCompatActivity {
                 tv.requestLayout();
                 asonanteList.invalidate();
                 asonanteList.requestLayout();
+                snackbar.show();
             }
         });
-
     }
+
+
 
 
 }

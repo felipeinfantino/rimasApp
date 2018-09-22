@@ -33,7 +33,7 @@ import java.io.Writer;
 public class Menu extends AppCompatActivity {
 
     private Spinner beats;
-    private Button cambioConsonantes, cambioAsonantes, startButton, stopButton, settings, trainer;
+    private Button cambioConsonantes, cambioAsonantes, startButton, stopButton, settings, trainer, reset;
     private TextView palabra1,palabra2,palabra3,palabra4,palabra5,palabra6,palabra7,palabra8;
     String jsonString;
     MediaPlayer mPlayerJazz, mPlayerOld, mPlayerDilated;
@@ -172,6 +172,7 @@ public class Menu extends AppCompatActivity {
         stopButton = (Button) findViewById(R.id.stopButton);
         settings = (Button) findViewById(R.id.settings);
         trainer = (Button) findViewById(R.id.trainer);
+        reset = (Button) findViewById(R.id.reset);
 
         mPlayerJazz = MediaPlayer.create(Menu.this, R.raw.coffeecoldjazz);
         mPlayerDilated = MediaPlayer.create(Menu.this, R.raw.dilatedpeople);
@@ -249,5 +250,32 @@ public class Menu extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        trainer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Menu.this, Trainer.class);
+                startActivity(intent);
+            }
+        });
+
+        reset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mPlayerJazz.isLooping() || mPlayerJazz.isPlaying()){
+                    mPlayerJazz.reset();
+                    return;
+                }
+                if( mPlayerOld.isLooping() || mPlayerOld.isPlaying()){
+                    mPlayerOld.reset();
+                    return;
+                }
+                if(mPlayerDilated.isLooping()|| mPlayerDilated.isPlaying()){
+                    mPlayerDilated.reset();
+                    return;
+                }
+            }
+        });
+
     }
 }

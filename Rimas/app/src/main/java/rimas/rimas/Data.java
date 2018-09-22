@@ -91,6 +91,14 @@ public class Data {
         }
     }
 
+    public boolean containsConsonantTermination(String toCheck){
+        return terminacionesConsonantes.contains(toCheck);
+    }
+
+    public boolean containsAsonanteTermination(String toCkhecl){
+        return terminacionesAsonantes.contains(toCkhecl);
+    }
+
     private void addRimasAsonantes(List<String> rimasAs){
         if(!rimasAsonantes.contains(rimasAs)){
             rimasAsonantes.add(rimasAs);
